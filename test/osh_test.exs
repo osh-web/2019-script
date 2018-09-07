@@ -1,8 +1,8 @@
-defmodule OshTest do
+defmodule OSHTest do
   use ExUnit.Case
-  doctest Osh
+  doctest OSH
 
-  test "greets the world" do
-    assert Osh.hello() == :world
+  test "message" do
+    assert "[info]オープンセミナー2019@広島まであと1日[/info]" == OSH.Countdown.message(1)
   end
 end

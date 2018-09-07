@@ -1,18 +1,21 @@
-defmodule Osh do
+defmodule OSH do
   @moduledoc """
-  Documentation for Osh.
+  オープンセミナー2019@広島を運営する上で使うスクリプト集
   """
+
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      {OSH.Countdown.Server, []}
+    ]
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Osh.hello()
-      :world
-
+  オープンセミナー2019@広島までの日数をチャットワークに投稿する
   """
-  def hello do
-    :world
+  def countdown do
+    OSH.Countdown.cast()
   end
 end
