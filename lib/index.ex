@@ -14,6 +14,10 @@ defmodule OSH do
     Supervisor.start_link(children, strategy: :one_for_one)
   end
 
+  def run do
+    countdown()
+  end
+
   @doc """
   オープンセミナー2019@広島までの日数をチャットワークに投稿する
   """
@@ -24,6 +28,10 @@ defmodule OSH do
 end
 
 defmodule OSH.Sandbox do
+  def run do
+    countdown()
+  end
+
   @doc """
   オープンセミナー2019@広島までの日数をチャットワークに投稿する(テスト用)
   """

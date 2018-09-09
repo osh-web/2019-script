@@ -15,7 +15,9 @@ defmodule Osh.MixProject do
   def application do
     [
       mod: {OSH, []},
-      extra_applications: [:logger, :timex]
+      applications: [:trot],
+      extra_applications: [:logger, :timex],
+      env: [port: System.get_env("PORT") || 4000]
     ]
   end
 
@@ -25,6 +27,7 @@ defmodule Osh.MixProject do
       {:chatwork_ex, "~> 0.0.1"},
       {:exactor, "~> 2.2.4", warn_missing: false},
       {:timex, "~> 3.1"},
+      {:trot, "~> 0.7.0"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
