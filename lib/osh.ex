@@ -9,7 +9,7 @@ defmodule OSH do
     access_token = System.get_env("CHATWORK_API_TOKEN")
     children = [
       {OSH.Countdown, []},
-      {OSH.Chatwork.Server, access_token},
+      {OSH.Chatwork, access_token},
     ]
     Supervisor.start_link(children, strategy: :one_for_one)
   end
