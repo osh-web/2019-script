@@ -6,8 +6,10 @@ defmodule OSH do
   use Application
 
   def start(_type, _args) do
+    access_token = System.get_env("CHATWORK_API_TOKEN")
     children = [
-      {OSH.Countdown.Server, []}
+      {OSH.Countdown.Server, []},
+      {OSH.Chatwork.Server, access_token},
     ]
     Supervisor.start_link(children, strategy: :one_for_one)
   end

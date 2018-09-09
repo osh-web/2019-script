@@ -17,13 +17,9 @@ defmodule OSH.Countdown do
   def countdown(room_id) do
     day()
     |> message()
-    |> chatwork(room_id)
+    |> OSH.Chatwork.post(room_id)
   end
 
-  def chatwork(message, room_id) do
-    access_token = System.get_env("CHATWORK_API_TOKEN")
-    ChatworkEx.Endpoint.Rooms.Messages.post!(access_token, room_id, message)
-  end
 
   @doc """
   オープンセミナー2019@広島までの日数を返す
