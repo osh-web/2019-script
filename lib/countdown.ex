@@ -34,7 +34,7 @@ defmodule OSH.Countdown do
   @spec day :: integer
   def day do
     day = ~D[2019-02-23]
-    today = Timex.now()
+    today = Timex.local()
             |> Timex.to_date
     Date.diff(day, today)
   end
