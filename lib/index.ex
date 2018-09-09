@@ -5,6 +5,8 @@ defmodule OSH do
 
   use Application
 
+  require Logger
+
   def start(_type, _args) do
     access_token = System.get_env("CHATWORK_API_TOKEN")
     children = [
@@ -15,6 +17,7 @@ defmodule OSH do
   end
 
   def run do
+    Logger.info("start task")
     countdown()
   end
 
@@ -22,28 +25,8 @@ defmodule OSH do
   オープンセミナー2019@広島までの日数をチャットワークに投稿する
   """
   def countdown do
-    room_id = 111443820
-    OSH.Base.countdown(room_id)
+    System.get_env("CHATWORK_ROOM_ID")
+    |> String.to_integer()
+    |> OSH.Countdown.run()
   end
 end
-
-defmodule OSH.Sandbox do
-  def run do
-    countdown()
-  end
-
-  @doc """
-  オープンセミナー2019@広島までの日数をチャットワークに投稿する(テスト用)
-  """
-  def countdown do
-    room_id = 59522447
-    OSH.Base.countdown(room_id)
-  end
-end
-
-defmodule OSH.Base do
-  def countdown(room_id) do
-    OSH.Countdown.run(room_id)
-  end
-end
-

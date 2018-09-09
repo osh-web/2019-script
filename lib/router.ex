@@ -3,11 +3,6 @@ defmodule OSH.Router do
 
   use Trot.Router
 
-  post "/sandbox" do
-    OSH.Sandbox.run()
-    "sandobx success"
-  end
-
   post "/" do
     OSH.run()
     "success"
