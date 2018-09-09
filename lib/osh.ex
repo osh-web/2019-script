@@ -8,7 +8,7 @@ defmodule OSH do
   def start(_type, _args) do
     access_token = System.get_env("CHATWORK_API_TOKEN")
     children = [
-      {OSH.Countdown.Server, []},
+      {OSH.Countdown, []},
       {OSH.Chatwork.Server, access_token},
     ]
     Supervisor.start_link(children, strategy: :one_for_one)
@@ -19,14 +19,23 @@ defmodule OSH do
   """
   def countdown do
     room_id = 111443820
-    OSH.Countdown.cast(room_id)
+    OSH.Base.countdown(room_id)
   end
+end
 
+defmodule OSH.Sandbox do
   @doc """
   オープンセミナー2019@広島までの日数をチャットワークに投稿する(テスト用)
   """
-  def countdown_sandbox do
+  def countdown do
     room_id = 59522447
-    OSH.Countdown.cast(room_id)
+    OSH.Base.countdown(room_id)
   end
 end
+
+defmodule OSH.Base do
+  def countdown(room_id) do
+    OSH.Countdown.run(room_id)
+  end
+end
+

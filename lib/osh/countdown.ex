@@ -4,14 +4,21 @@ defmodule OSH.Countdown do
 
   ## Examples
 
-      iex> Osh.Coundown.countdown()
+      iex> OSH.Countdown.run()
       4
   """
 
+  use ExActor.GenServer, export: {:global, __MODULE__}
   use Timex
 
-  def cast(room_id) do
-    GenServer.cast(OSH.Countdown.Server, {:countdown, room_id})
+  defstart start_link(_), do: initial_state([])
+
+  @doc """
+  オープンセミナー2019@広島までの日数をつたえるチャットワーク用のメッセージを作成
+  """
+  defcast run(room_id), state: state do
+    countdown(room_id)
+    new_state(state)
   end
 
   def countdown(room_id) do
@@ -38,25 +45,5 @@ defmodule OSH.Countdown do
   @spec message(integer) :: bitstring
   def message(day) when day >= 0 do
     "[info]オープンセミナー2019@広島まであと#{day}日[/info]"
-  end
-end
-
-defmodule OSH.Countdown.Server do
-  use GenServer
-
-  @doc """
-  オープンセミナー2019@広島までの日数をつたえるチャットワーク用のメッセージを作成
-  """
-  def countdown do
-    GenServer.cast(__MODULE__, {:countdown})
-  end
-
-  def start_link(_), do: GenServer.start_link(__MODULE__, [], name: __MODULE__)
-
-  def init(state), do: {:ok, state}
-
-  def handle_cast({:countdown, room_id}, state) do
-    OSH.Countdown.countdown(room_id)
-    {:noreply, state}
   end
 end
