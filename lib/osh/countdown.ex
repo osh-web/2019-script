@@ -10,16 +10,20 @@ defmodule OSH.Countdown do
 
   use Timex
 
-  def cast() do
-    GenServer.cast(OSH.Countdown.Server, {:countdown})
+  def cast(room_id) do
+    GenServer.cast(OSH.Countdown.Server, {:countdown, room_id})
   end
 
-  def countdown() do
+  def countdown(room_id) do
     day()
     |> message()
-    |> IO.puts()
+    |> chatwork(room_id)
   end
 
+  def chatwork(message, room_id) do
+    access_token = System.get_env("CHATWORK_API_TOKEN")
+    ChatworkEx.Endpoint.Rooms.Messages.post!(access_token, room_id, message)
+  end
 
   @doc """
   オープンセミナー2019@広島までの日数を返す
@@ -55,8 +59,8 @@ defmodule OSH.Countdown.Server do
 
   def init(state), do: {:ok, state}
 
-  def handle_cast({:countdown}, state) do
-    OSH.Countdown.countdown()
+  def handle_cast({:countdown, room_id}, state) do
+    OSH.Countdown.countdown(room_id)
     {:noreply, state}
   end
 end

@@ -16,6 +16,15 @@ defmodule OSH do
   オープンセミナー2019@広島までの日数をチャットワークに投稿する
   """
   def countdown do
-    OSH.Countdown.cast()
+    room_id = 111443820
+    OSH.Countdown.cast(room_id)
+  end
+
+  @doc """
+  オープンセミナー2019@広島までの日数をチャットワークに投稿する(テスト用)
+  """
+  def countdown_sandbox do
+    room_id = 59522447
+    OSH.Countdown.cast(room_id)
   end
 end
