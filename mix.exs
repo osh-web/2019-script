@@ -27,7 +27,8 @@ defmodule Osh.MixProject do
       {:chatwork_ex, "~> 0.0.1"},
       {:exactor, "~> 2.2.4", warn_missing: false},
       {:timex, "~> 3.1"},
-      {:trot, "~> 0.7.0"}
+      {:trot, "~> 0.7.0"},
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
