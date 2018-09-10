@@ -7,5 +7,4 @@ defmodule OSH.Router do
     OSH.run()
     "success"
   end
-
 end

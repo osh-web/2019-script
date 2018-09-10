@@ -13,7 +13,7 @@ defmodule OSH.Countdown do
 
   alias OSH.Chatwork
 
-  defstart start_link(_), do: initial_state([])
+  defstart(start_link(_), do: initial_state([]))
 
   @doc """
   オープンセミナー2019@広島までの日数をつたえるチャットワーク用のメッセージを作成
@@ -35,8 +35,11 @@ defmodule OSH.Countdown do
   @spec day :: integer
   def day do
     day = ~D[2019-02-23]
-    today = Timex.local()
-            |> Timex.to_date
+
+    today =
+      Timex.local()
+      |> Timex.to_date()
+
     Date.diff(day, today)
   end
 

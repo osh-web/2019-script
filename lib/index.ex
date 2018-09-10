@@ -12,10 +12,12 @@ defmodule OSH do
 
   def start(_type, _args) do
     access_token = System.get_env("CHATWORK_API_TOKEN")
+
     children = [
       {Countdown, []},
-      {Chatwork, access_token},
+      {Chatwork, access_token}
     ]
+
     Supervisor.start_link(children, strategy: :one_for_one)
   end
 
