@@ -11,6 +11,8 @@ defmodule OSH.Countdown do
   use ExActor.GenServer, export: {:global, __MODULE__}
   use Timex
 
+  alias OSH.Chatwork
+
   defstart start_link(_), do: initial_state([])
 
   @doc """
@@ -24,9 +26,8 @@ defmodule OSH.Countdown do
   def countdown(room_id) do
     day()
     |> message()
-    |> OSH.Chatwork.post(room_id)
+    |> Chatwork.post(room_id)
   end
-
 
   @doc """
   オープンセミナー2019@広島までの日数を返す

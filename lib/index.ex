@@ -5,13 +5,16 @@ defmodule OSH do
 
   use Application
 
+  alias OSH.Chatwork
+  alias OSH.Countdown
+
   require Logger
 
   def start(_type, _args) do
     access_token = System.get_env("CHATWORK_API_TOKEN")
     children = [
-      {OSH.Countdown, []},
-      {OSH.Chatwork, access_token},
+      {Countdown, []},
+      {Chatwork, access_token},
     ]
     Supervisor.start_link(children, strategy: :one_for_one)
   end
@@ -27,6 +30,6 @@ defmodule OSH do
   def countdown do
     System.get_env("CHATWORK_ROOM_ID")
     |> String.to_integer()
-    |> OSH.Countdown.run()
+    |> Countdown.run()
   end
 end
